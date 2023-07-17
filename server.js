@@ -19,11 +19,13 @@ app.get('/allSongs', async (req, res) => {
   res.send(songs);
 })
 
-app.use('/urls', express.static('C:/Users/thoma/SpotiFlyer/Playlists/All_Out_2010s'));
+app.use('/urls', express.static('./All_Out_2010s'));
 
 app.listen(4000, () => {
   console.log('Server listening on port 4000')
 });
+
+let filePath = './All_Out_2010s'
 
 const getSongMetadata = async (filePath1, file1) => {
 
@@ -45,8 +47,6 @@ const getSongMetadata = async (filePath1, file1) => {
 
 const getSongsMetadata = () => {
 
-  let filePath = 'C:/Users/thoma/SpotiFlyer/Playlists/All_Out_2010s'
-
   return new Promise( async resolve => {
     let metadata = []
     let fsObj = fs.readdirSync(filePath);
@@ -64,8 +64,6 @@ const getSongsMetadata = () => {
 const getAllSongs = async () => {
 
   return new Promise( (resolve) => {
-
-    let filePath = 'C:/Users/thoma/SpotiFlyer/Playlists/All_Out_2010s'
 
     let names = []
 
