@@ -16,6 +16,8 @@ app.get('/allSongs', async (req, res) => {
   res.send(songs);
 })
 
+const jsonDirectory = path.join(process.cwd(), 'json');
+
 app.use('/urls', express.static('./All_Out_2010s'));
 
 const port = process.env.PORT || 9001;
@@ -48,7 +50,7 @@ const getSongsMetadata = () => {
 
   return new Promise( async resolve => {
     let metadata = []
-    let fsObj = fs.readdirSync(filePath);
+    let fsObj = fs.readdirSync(jsonDirectory + filePath);
     for (const file of fsObj)
     {
       var data = await getSongMetadata(filePath, file);
@@ -66,7 +68,7 @@ const getAllSongs = async () => {
 
     let names = []
 
-    fs.readdirSync(filePath).forEach(file => {
+    fs.readdirSync(jsonDirectory + filePath).forEach(file => {
       names.push(file)
     });
 
