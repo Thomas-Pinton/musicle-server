@@ -18,8 +18,10 @@ app.get('/allSongs', async (req, res) => {
 
 app.use('/urls', express.static('./All_Out_2010s'));
 
-app.listen(4000, () => {
-  console.log('Server listening on port 4000')
+const port = process.env.PORT || 9001;
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`)
 });
 
 let filePath = './All_Out_2010s'
