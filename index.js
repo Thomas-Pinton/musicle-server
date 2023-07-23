@@ -12,7 +12,7 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/allSongs', async (req, res) => {
-  const songs = await getSongsMetadata();
+  const songs = await getSongsMetadataNoApi();
   res.send(songs);
 })
 
@@ -41,6 +41,14 @@ const getSongMetadata = async (filePath1, file1) => {
         // cover: (metadata.common.picture ? metadata.common.picture[0].data.toString('base64') : null)
       });
     })
+  })
+}
+
+const getSongsMetadataNoApi = () => {
+  return new Promise( async resolve => {
+    var songsData = await readFileAsync('songs.json');
+    if (songsData)
+      resolve(songsData);
   })
 }
 
