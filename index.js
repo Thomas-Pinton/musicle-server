@@ -2,8 +2,6 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 
-import path from 'path';
-
 const app = express();
 
 app.use(cors());
