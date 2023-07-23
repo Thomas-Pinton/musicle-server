@@ -47,6 +47,12 @@ const getSongMetadata = async (filePath1, file1) => {
 const getSongsMetadata = () => {
 
   return new Promise( async resolve => {
+
+    var songsData = await readFileAsync('songs.json');
+
+    if (songsData)
+      resolve(songsData);
+
     let metadata = []
     let fsObj = fs.readdirSync(filePath);
     for (const file of fsObj)
@@ -55,6 +61,13 @@ const getSongsMetadata = () => {
       console.log("name", data);
       metadata.push(data)
     }
+    const jsonData = JSON.stringify(metadata);
+
+    fs.writeFile('songs.json', jsonData, (err) => {
+      if (err) throw err;
+      console.log('Data written to file');
+    });
+
     console.log("Resolved");
     resolve(metadata);
   });
@@ -78,18 +91,19 @@ const getAllSongs = async () => {
 
 }
 
+function readFileAsync(filename) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, 'utf8', (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    });
+  });
+}
+
 const getSong = async () => {
 
   let date = new Date();
-
-  function readFileAsync(filename) {
-    return new Promise((resolve, reject) => {
-      fs.readFile(filename, 'utf8', (err, data) => {
-        if (err) reject(err);
-        resolve(data);
-      });
-    });
-  }
+  
   let data = await readFileAsync('song.json');
   data ? data = JSON.parse(data) : data = [];
 
